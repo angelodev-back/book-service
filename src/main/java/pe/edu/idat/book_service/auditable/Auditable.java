@@ -1,7 +1,6 @@
 package pe.edu.idat.book_service.auditable;
 
 import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 

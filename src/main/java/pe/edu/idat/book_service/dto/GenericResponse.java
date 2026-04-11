@@ -2,11 +2,10 @@ package pe.edu.idat.book_service.dto;
 
 public class GenericResponse<T> {
 
-    private T response;
+	private T response;
     private ErrorMessage error;
 
-    public GenericResponse() {
-    }
+    public GenericResponse() {}
 
     public GenericResponse(T response, ErrorMessage error) {
         this.response = response;

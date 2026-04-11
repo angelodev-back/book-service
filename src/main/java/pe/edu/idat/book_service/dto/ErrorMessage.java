@@ -1,18 +1,17 @@
 package pe.edu.idat.book_service.dto;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ErrorMessage {
 
-    private Integer statusCode;
-    private LocalDate dateError;
+	private Integer statusCode;
+    private LocalDateTime dateError;
     private String message;
     private String description;
 
-    public ErrorMessage() {
-    }
+    public ErrorMessage() {}
 
-    public ErrorMessage(Integer statusCode, LocalDate dateError, String message, String description) {
+    public ErrorMessage(Integer statusCode, LocalDateTime dateError, String message, String description) {
         this.statusCode = statusCode;
         this.dateError = dateError;
         this.message = message;
@@ -27,11 +26,11 @@ public class ErrorMessage {
         this.statusCode = statusCode;
     }
 
-    public LocalDate getDateError() {
+    public LocalDateTime getDateError() {
         return dateError;
     }
 
-    public void setDateError(LocalDate dateError) {
+    public void setDateError(LocalDateTime dateError) {
         this.dateError = dateError;
     }
 

@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 @Table(name = "libro")
 public class Libro extends Auditable {
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_libro")
     private Integer idLibro;
@@ -30,10 +30,10 @@ public class Libro extends Auditable {
     @Column(name = "estado", nullable = false, length = 20)
     private String estado;
 
-    public Libro() {
-    }
+    public Libro() {}
 
-    public Libro(Integer idLibro, String titulo, String autor, String genero, String isbn, Integer stock, String estado) {
+    public Libro(Integer idLibro, String titulo, String autor, String genero, 
+                 String isbn, Integer stock, String estado) {
         this.idLibro = idLibro;
         this.titulo = titulo;
         this.autor = autor;
