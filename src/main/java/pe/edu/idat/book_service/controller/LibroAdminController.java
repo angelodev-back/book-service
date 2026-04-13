@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import pe.edu.idat.book_service.dto.response.EstadisticasDTO;
-import pe.edu.idat.book_service.service.ILibroService;
+import pe.edu.idat.book_service.service.ILibroAdminService;
 
 @RestController
 @RequestMapping("/api/admin/libros")
 @PreAuthorize("hasRole('ADMIN')")
 public class LibroAdminController {
 
-    private final ILibroService libroService;
+    private final ILibroAdminService libroAdminService;
 
-    public LibroAdminController(ILibroService libroService) {
-        this.libroService = libroService;
+    public LibroAdminController(ILibroAdminService libroAdminService) {
+        this.libroAdminService = libroAdminService;
     }
 
     private String getUsuarioActual() {
@@ -29,12 +29,12 @@ public class LibroAdminController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarLibro(@PathVariable Integer id) {
-        libroService.eliminarLibro(id, getUsuarioActual());
+    	libroAdminService.eliminarLibro(id, getUsuarioActual());
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/estadisticas")
     public ResponseEntity<EstadisticasDTO> obtenerEstadisticas() {
-        return ResponseEntity.ok(libroService.obtenerEstadisticas());
+        return ResponseEntity.ok(libroAdminService.obtenerEstadisticas());
     }
 }

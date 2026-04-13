@@ -10,26 +10,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import pe.edu.idat.book_service.dto.response.LibroResponseDTO;
-import pe.edu.idat.book_service.service.ILibroService;
+import pe.edu.idat.book_service.service.ILibroPublicService;
 
 @RestController
 @RequestMapping("/api/libros")
 public class LibroPublicController {
 
-    private final ILibroService libroService;
+    private final ILibroPublicService libroPublicService;
 
-    public LibroPublicController(ILibroService libroService) {
-        this.libroService = libroService;
+    public LibroPublicController(ILibroPublicService libroPublicService) {
+        this.libroPublicService = libroPublicService;
     }
 
     @GetMapping
     public ResponseEntity<List<LibroResponseDTO>> listarDisponibles() {
-        return ResponseEntity.ok(libroService.listarLibrosDisponibles());
+        return ResponseEntity.ok(libroPublicService.listarLibrosDisponibles());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<LibroResponseDTO> buscarPorId(@PathVariable Integer id) {
-        return ResponseEntity.ok(libroService.buscarPorId(id));
+        return ResponseEntity.ok(libroPublicService.buscarPorId(id));
     }
 
     @GetMapping("/buscar")
@@ -39,13 +39,13 @@ public class LibroPublicController {
             @RequestParam(required = false) String genero) {
         
         if (titulo != null && !titulo.isEmpty()) {
-            return ResponseEntity.ok(libroService.buscarPorTitulo(titulo));
+            return ResponseEntity.ok(libroPublicService.buscarPorTitulo(titulo));
         } else if (autor != null && !autor.isEmpty()) {
-            return ResponseEntity.ok(libroService.buscarPorAutor(autor));
+            return ResponseEntity.ok(libroPublicService.buscarPorAutor(autor));
         } else if (genero != null && !genero.isEmpty()) {
-            return ResponseEntity.ok(libroService.buscarPorGenero(genero));
+            return ResponseEntity.ok(libroPublicService.buscarPorGenero(genero));
         }
         
-        return ResponseEntity.ok(libroService.listarLibrosDisponibles());
+        return ResponseEntity.ok(libroPublicService.listarLibrosDisponibles());
     }
 }

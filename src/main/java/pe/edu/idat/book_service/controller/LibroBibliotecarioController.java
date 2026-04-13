@@ -21,17 +21,17 @@ import pe.edu.idat.book_service.dto.request.LibroRequestDTO;
 import pe.edu.idat.book_service.dto.request.LibroUpdateDTO;
 import pe.edu.idat.book_service.dto.request.StockUpdateDTO;
 import pe.edu.idat.book_service.dto.response.LibroDetalleDTO;
-import pe.edu.idat.book_service.service.ILibroService;
+import pe.edu.idat.book_service.service.ILibroBibliotecarioService;
 
 @RestController
 @RequestMapping("/api/bibliotecario/libros")
 @PreAuthorize("hasAnyRole('ADMIN', 'BIBLIOTECARIO')")
 public class LibroBibliotecarioController {
 
-    private final ILibroService libroService;
+    private final ILibroBibliotecarioService libroBibliotecarioService;
 
-    public LibroBibliotecarioController(ILibroService libroService) {
-        this.libroService = libroService;
+    public LibroBibliotecarioController(ILibroBibliotecarioService libroBibliotecarioService) {
+        this.libroBibliotecarioService = libroBibliotecarioService;
     }
 
     private String getUsuarioActual() {
@@ -40,17 +40,17 @@ public class LibroBibliotecarioController {
 
     @GetMapping
     public ResponseEntity<List<LibroDetalleDTO>> listarTodos() {
-        return ResponseEntity.ok(libroService.listarTodos());
+        return ResponseEntity.ok(libroBibliotecarioService.listarTodos());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<LibroDetalleDTO> buscarPorId(@PathVariable Integer id) {
-        return ResponseEntity.ok(libroService.buscarPorIdDetalle(id));
+        return ResponseEntity.ok(libroBibliotecarioService.buscarPorIdDetalle(id));
     }
 
     @PostMapping
     public ResponseEntity<LibroDetalleDTO> registrarLibro(@Valid @RequestBody LibroRequestDTO request) {
-        LibroDetalleDTO response = libroService.registrarLibro(request, getUsuarioActual());
+        LibroDetalleDTO response = libroBibliotecarioService.registrarLibro(request, getUsuarioActual());
         return ResponseEntity.status(HttpStatus.SC_CREATED).body(response);
     }
 
@@ -58,7 +58,7 @@ public class LibroBibliotecarioController {
     public ResponseEntity<LibroDetalleDTO> actualizarLibro(
             @PathVariable Integer id,
             @Valid @RequestBody LibroUpdateDTO request) {
-        LibroDetalleDTO response = libroService.actualizarLibro(id, request, getUsuarioActual());
+        LibroDetalleDTO response = libroBibliotecarioService.actualizarLibro(id, request, getUsuarioActual());
         return ResponseEntity.ok(response);
     }
 
@@ -66,7 +66,7 @@ public class LibroBibliotecarioController {
     public ResponseEntity<Void> ajustarStock(
             @PathVariable Integer id,
             @Valid @RequestBody StockUpdateDTO request) {
-        libroService.ajustarStock(id, request.getCantidad(), request.getMotivo(), getUsuarioActual());
+    	libroBibliotecarioService.ajustarStock(id, request.getCantidad(), request.getMotivo(), getUsuarioActual());
         return ResponseEntity.noContent().build();
     }
 
@@ -74,7 +74,7 @@ public class LibroBibliotecarioController {
     public ResponseEntity<Void> cambiarEstado(
             @PathVariable Integer id,
             @Valid @RequestBody EstadoUpdateDTO request) {
-        libroService.cambiarEstado(id, request.getEstado(), getUsuarioActual());
+    	libroBibliotecarioService.cambiarEstado(id, request.getEstado(), getUsuarioActual());
         return ResponseEntity.noContent().build();
     }
 }

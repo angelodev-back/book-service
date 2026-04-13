@@ -3,29 +3,34 @@ package pe.edu.idat.book_service.dto.request;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import pe.edu.idat.book_service.constants.AppConstants;
 
 public class LibroRequestDTO {
 
 	@NotBlank(message = "El título es obligatorio")
-    @Size(min = 1, max = 200, message = "El título debe tener entre 1 y 200 caracteres")
+    @Size(min = AppConstants.MIN_TITULO, max = AppConstants.MAX_TITULO, message = AppConstants.MSG_TITULO)
     private String titulo;
 
     @NotBlank(message = "El autor es obligatorio")
-    @Size(min = 2, max = 150, message = "El autor debe tener entre 2 y 150 caracteres")
+    @Size(min = AppConstants.MIN_AUTOR, max = AppConstants.MAX_AUTOR, message = AppConstants.MSG_AUTOR)
+    @Pattern(regexp = AppConstants.REGEX_SOLO_LETRAS, message = AppConstants.MSG_AUTOR)
     private String autor;
 
     @NotBlank(message = "El género es obligatorio")
-    @Size(max = 80, message = "El género no puede exceder 80 caracteres")
+    @Size(min = AppConstants.MIN_GENERO, max = AppConstants.MAX_GENERO, message = AppConstants.MSG_GENERO)
+    @Pattern(regexp = AppConstants.REGEX_SOLO_LETRAS, message = AppConstants.MSG_GENERO)
     private String genero;
 
     @NotBlank(message = "El ISBN es obligatorio")
-    @Size(max = 20, message = "El ISBN no puede exceder 20 caracteres")
+    @Pattern(regexp = AppConstants.REGEX_ISBN, message = AppConstants.MSG_ISBN)
     private String isbn;
 
     @NotNull(message = "El stock es obligatorio")
-    @Min(value = 0, message = "El stock no puede ser negativo")
+    @Min(value = 0, message = AppConstants.MSG_STOCK)
     private Integer stock;
+
 
     public LibroRequestDTO() {}
 
